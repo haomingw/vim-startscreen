@@ -12,7 +12,7 @@ function! s:warn(msg) abort
 endfunction
 
 function! startscreen#start()
-  if !argc() && line2byte('$') == -1
+  if argc() || line2byte('$') != -1
     return
   endif
 " Handle vim -y, vim -M.
@@ -42,19 +42,20 @@ function! startscreen#start()
         \ signcolumn=no
         \ synmaxcol&
 
-  let l:version = split(execute(":version"), '\n')[0]
-  call append('$', l:version)
+  let l:version = split(execute(":version"), '\n')
+  for line in l:version[0:2]
+    call append('$', '      ' . l:line)
+  endfor
 
   " No modifications to this buffer
   setlocal nomodifiable nomodified
 
   " Set mappings
-  nnoremap <buffer><nowait><silent> <insert>: enew <bar> startinsert<cr>
-  nnoremap <buffer><nowait><silent> i:        enew <bar> startinsert<cr>
-  nnoremap <buffer><nowait><silent> a:        enew <bar> startinsert<cr>
-  nnoremap <buffer><nowait><silent> o:        enew <bar> startinsert<cr><cr>
-  nnoremap <buffer><nowait><silent> p:        enew<CR>p
-  nnoremap <buffer><nowait><silent> P:        enew<CR>P
+  nnoremap <buffer><nowait><silent> i        :enew <bar> startinsert<cr>
+  nnoremap <buffer><nowait><silent> <insert> :enew <bar> startinsert<cr>
+  nnoremap <buffer><nowait><silent> o        :enew <bar> startinsert<cr><cr>
+  nnoremap <buffer><nowait><silent> p        :enew<cr>p
+  nnoremap <buffer><nowait><silent> P        :enew<cr>P
 
 endfunction
 
