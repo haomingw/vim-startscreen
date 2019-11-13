@@ -24,14 +24,11 @@ function! startscreen#start()
     return
   endif
 
-  noautocmd enew
-
   silent! setlocal
         \ bufhidden=wipe
         \ colorcolumn=
         \ foldcolumn=0
         \ matchpairs=
-        \ nobuflisted
         \ nocursorcolumn
         \ nocursorline
         \ nolist
