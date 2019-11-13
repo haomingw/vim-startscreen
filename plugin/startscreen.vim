@@ -15,7 +15,7 @@ function! startscreen#start()
   if argc() || line2byte('$') != -1
     return
   endif
-" Handle vim -y, vim -M.
+  " Handle vim -y, vim -M.
   if &insertmode || !&modifiable
     return
   endif
@@ -51,11 +51,12 @@ function! startscreen#start()
   setlocal nomodifiable nomodified
 
   " Set mappings
-  nnoremap <buffer><nowait><silent> i        :enew <bar> startinsert<cr>
-  nnoremap <buffer><nowait><silent> <insert> :enew <bar> startinsert<cr>
-  nnoremap <buffer><nowait><silent> o        :enew <bar> startinsert<cr><cr>
-  nnoremap <buffer><nowait><silent> p        :enew<cr>p
-  nnoremap <buffer><nowait><silent> P        :enew<cr>P
+  nnoremap <buffer><nowait><silent> i :enew <bar> startinsert<cr>
+  nnoremap <buffer><nowait><silent> a :enew <bar> startinsert<cr>
+  nnoremap <buffer><nowait><silent> o :enew <bar> startinsert<cr><cr>
+  nnoremap <buffer><nowait><silent> O :enew <bar> startinsert<cr><cr><up>
+  nnoremap <buffer><nowait><silent> p :enew<cr>p
+  nnoremap <buffer><nowait><silent> P :enew<cr>P
 
 endfunction
 
