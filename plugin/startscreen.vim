@@ -58,6 +58,7 @@ function! startscreen#start()
 endfunction
 
 augroup startscreen
+  autocmd!
   autocmd VimEnter * call startscreen#start()
 augroup END
 
