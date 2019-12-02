@@ -49,13 +49,17 @@ function! startscreen#start() abort
         \ signcolumn=no
         \ synmaxcol&
 
-  let header = exists('*strwidth') ? startscreen#center(startscreen#fortune#cowsay()) : []
-  if !empty(header)
-    let header += ['']  " add blank line
+  let g:startscreen_header = exists('*strwidth')
+    \ ? startscreen#center(startscreen#fortune#cowsay())
+    \ : []
+  if !empty(g:startscreen_header)
+    let g:startscreen_header += ['']  " add blank line
   endif
-  call append('$', header)
+  call append('$', g:startscreen_header)
   " No modifications to this buffer
   setlocal nomodifiable nomodified
+
+  set filetype=startscreen
 
   " Set mappings
   nnoremap <buffer><nowait><silent> i :enew <bar> startinsert<cr>
