@@ -15,6 +15,12 @@ function! s:warn(msg) abort
   echohl NONE
 endfunction
 
+function! startscreen#center(lines) abort
+  let longest_line = max(map(copy(a:lines), 'strwidth(v:val)'))
+  return map(copy(a:lines),
+        \ 'repeat(" ", (&columns / 2) - (longest_line / 2) - 1) . v:val')
+endfunction
+
 function! startscreen#start() abort
   if argc() || line2byte('$') != -1
     return
@@ -43,11 +49,11 @@ function! startscreen#start() abort
         \ signcolumn=no
         \ synmaxcol&
 
-  let l:version = split(execute(":version"), '\n')
-  for line in l:version[0:2]
-    call append('$', '      ' . l:line)
-  endfor
-
+  let header = exists('*strwidth') ? startscreen#center(startscreen#fortune#cowsay()) : []
+  if !empty(header)
+    let header += ['']  " add blank line
+  endif
+  call append('$', header)
   " No modifications to this buffer
   setlocal nomodifiable nomodified
 
