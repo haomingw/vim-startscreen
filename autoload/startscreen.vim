@@ -15,6 +15,15 @@ function! s:warn(msg) abort
   echohl NONE
 endfunction
 
+function! s:set_custom_section(section) abort
+  if type(a:section) == type([])
+    return copy(a:section)
+  elseif type(a:section) == type('')
+    return empty(a:section) ? [] : eval(a:section)
+  endif
+  return []
+endfunction
+
 function! startscreen#center(lines) abort
   let longest_line = max(map(copy(a:lines), 'strwidth(v:val)'))
   return map(copy(a:lines),
@@ -49,9 +58,10 @@ function! startscreen#start() abort
         \ signcolumn=no
         \ synmaxcol&
 
-  let g:startscreen_header = exists('*strwidth')
-    \ ? startscreen#center(startscreen#fortune#cowsay())
-    \ : []
+  let header = exists('g:startscreen_custom_header')
+    \ ? s:set_custom_section(g:startscreen_custom_header)
+    \ : (exists('*strwidth') ? startify#fortune#cowsay() : [])
+  let g:startscreen_header = startscreen#center(header)
   if !empty(g:startscreen_header)
     let g:startscreen_header += ['']  " add blank line
   endif
