@@ -60,7 +60,7 @@ function! startscreen#start() abort
 
   let header = exists('g:startscreen_custom_header')
     \ ? s:set_custom_section(g:startscreen_custom_header)
-    \ : (exists('*strwidth') ? startify#fortune#cowsay() : [])
+    \ : (exists('*strwidth') ? startscreen#fortune#cowsay() : [])
   let g:startscreen_header = startscreen#center(header)
   if !empty(g:startscreen_header)
     let g:startscreen_header += ['']  " add blank line
