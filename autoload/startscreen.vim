@@ -78,6 +78,7 @@ function! startscreen#start() abort
   nnoremap <buffer><nowait><silent> O :enew <bar> startinsert<cr><cr><up>
   nnoremap <buffer><nowait><silent> p :enew<cr>p
   nnoremap <buffer><nowait><silent> P :enew<cr>P
+  nnoremap <buffer><nowait><silent> q :q<cr>
 
 endfunction
 
